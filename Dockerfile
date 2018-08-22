@@ -14,9 +14,10 @@ RUN apk add --no-cache \
   ffmpeg \
   graphicsmagick
 
-RUN mkdir -p /config/{log/nginx,log/php}
+RUN mkdir -p /config/{log/nginx,log/php} \
+  /data/_h5ai
 
 WORKDIR /data
 
-COPY --from=node /h5ai/build/_h5ai /data
-COPY docker/default /defaults/
+COPY --from=node /h5ai/build/_h5ai /data/_h5ai
+COPY ./docker/default /defaults
