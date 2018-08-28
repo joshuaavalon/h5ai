@@ -1,0 +1,39 @@
+dockerhub:
+  image: docker:stable
+  stage: deploy
+  tags:
+    - docker
+
+  before_script:
+    - docker info
+
+  script:
+    - if [ "$CI_COMMIT_REF_NAME" = "master" ]; then DOCKER_TAG="latest"; else DOCKER_TAG="$CI_COMMIT_REF_NAME"; fi
+    - echo $CI_DOCKER_TOKEN | docker login -u joshuaavalon --password-stdin
+    - docker build -t joshuaavalon/h5ai:$DOCKER_TAG .
+    - docker push joshuaavalon/h5ai:$DOCKER_TAG
+    - unset DOCKER_TAG
+
+  only:
+    variables:
+      - $CI_DOCKER_TOKEN
+
+registry:
+  image: docker:stable
+  stage: deploy
+  tags:
+    - docker
+
+  before_script:
+    - docker info
+
+  script:
+    - if [ "$CI_COMMIT_REF_NAME" = "master" ]; then DOCKER_TAG="latest"; else DOCKER_TAG="$CI_COMMIT_REF_NAME"; fi
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.joshuaavalon.io
+    - docker build -t registry.joshuaavalon.io/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$DOCKER_TAG .
+    - docker push registry.joshuaavalon.io/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$DOCKER_TAG
+    - unset DOCKER_TAG
+
+  only:
+    - tags
+    - branches

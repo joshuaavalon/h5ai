@@ -1,3 +1,4 @@
+![h5ai](icon.png?raw=true "h5ai")
 # h5ai
 
 This is a fork of [h5ai][h5ai]. Since the maintainer stopped developing, this repository is meant to provide Docker support and add some features on top of it.
