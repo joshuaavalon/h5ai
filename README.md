@@ -6,7 +6,7 @@ This is a fork of [h5ai][h5ai]. Since the maintainer stopped developing, this re
 The public issue tracker is located at [GitHub][github] but the source code it hosted on [private GitLab server][gitlab].
 GitHub source code will be a mirror and PR will be merge at GitLab instead.
 
-[Original Readme](./README.h5ai.md).
+[Original Readme](./h5ai.md).
 
 [h5ai]: https://github.com/lrsjng/h5ai
 [gitlab]: https://git.joshuaavalon.io/joshuaavalon/h5ai
